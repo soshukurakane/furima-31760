@@ -31,10 +31,12 @@ Things you may want to cover:
 | ---------------- | ----------- | ---------------- |
 | nickname         |   string    |  null: false     |
 | email            |  string     |  null: false     |
-|  password        |  string     |  null: false     |
-|  name1           |  string     |  null: false     |
-|  name2           |  string     |  null: false     |
-|  birthday        |  integer    |  null: false     |
+|encrypted_password|  string     |  null: false     |
+|  last_name       |  string     |  null: false     |
+|  first_name      |  string     |  null: false     |
+|  last_name_kana  |  string     |  null:false      |
+|  first_name_kana |  string     |  null:false      |
+|  birthday        |  date       |  null: false     |
 
 ### Association
 
@@ -47,11 +49,11 @@ Things you may want to cover:
 | ---------------- | ----------- | ---------------- |
 | title            | string      | null: false      |
 | explanation      | text        | null: false      |
-| category_id      |  integer    |                  |
-| state_id         |  integer    |                  |
-| burden_id        |  integer    |                  |
-|  area_id         |  integer    |                  |
-| day_id           |  integer    |                  |
+| category_id      |  integer    | null: false      |
+| status_id        |  integer    | null: false      |
+| burden_id        |  integer    | null: false      |
+|  area_id         |  integer    | null: false      |
+| day_id           |  integer    | null: false      |
 |  selling_price   |  integer    |  null: false     |
 |   user           |  references | foreign_key: true|
 
@@ -65,28 +67,29 @@ Things you may want to cover:
 
 | Column           |    Type     |  Options         |
 | ---------------- | ----------- | ---------------- |
-| card_num         | integer     | null: false      |
 |  valid_date      |  integer    |  null: false     |
 |  security        |  integer    | null: false      |
 |  user            | references  | foreign_key: true|
+|  item            | references  | foreign_key: true|
 
 ### Association
 
 - belongs_to :item
 - belongs_to :user
-- has_many :addresses
+- has_one :addresses
 
 
 ## addresses テーブル
 
 | Column           |    Type     |  Options         |
 | ---------------- | ----------- | ---------------- |
-| post_code        | integer     |  null: false     |
-| prefecture_id    | integer     |                  |
+| post_code        | string      |  null: false     |
+| prefecture_id    | integer     |  null: false     |
 | city             | string      | null: false      |
 | address          |  string     |  null: false     |
 | building         |  string     |                  |
-| phone_num        |  integer    |  null: false     |
+| phone_num        |  string     |  null: false     |
+| order            | references  | foreign_key: true|
 
 
 ### Association
