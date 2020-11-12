@@ -45,17 +45,17 @@ Things you may want to cover:
 
 ## items テーブル
  
-| Column           |    Type     |  Options         |
-| ---------------- | ----------- | ---------------- |
-| title            | string      | null: false      |
-| explanation      | text        | null: false      |
-| category_id      |  integer    | null: false      |
-| status_id        |  integer    | null: false      |
-| burden_id        |  integer    | null: false      |
-|  area_id         |  integer    | null: false      |
-| day_id           |  integer    | null: false      |
-|  selling_price   |  integer    |  null: false     |
-|   user           |  references | foreign_key: true|
+| Column           |    Type     |  Options                      |
+| ---------------- | ----------- | ------------------------------|
+| title            | string      | null: false                   |
+| explanation      | text        | null: false                   |
+| category_id      |  integer    | null: false                   |
+| status_id        |  integer    | null: false                   |
+| burden_id        |  integer    | null: false                   |
+|  area_id         |  integer    | null: false                   |
+| day_id           |  integer    | null: false                   |
+|  selling_price   |  integer    |  null: false                  |
+|   user           |  references | null: false, foreign_key: true|
 
 
 ### Association
@@ -65,12 +65,12 @@ Things you may want to cover:
 
 ## orders テーブル
 
-| Column           |    Type     |  Options         |
-| ---------------- | ----------- | ---------------- |
-|  valid_date      |  integer    |  null: false     |
-|  security        |  integer    | null: false      |
-|  user            | references  | foreign_key: true|
-|  item            | references  | foreign_key: true|
+| Column           |    Type     |  Options                      |
+| ---------------- | ----------- | ------------------------------|
+|  valid_date      |  integer    |  null: false                  |
+|  security        |  integer    | null: false                   |
+|  user            | references  | null: false, foreign_key: true|
+|  item            | references  | null: false, foreign_key: true|
 
 ### Association
 
@@ -81,15 +81,15 @@ Things you may want to cover:
 
 ## addresses テーブル
 
-| Column           |    Type     |  Options         |
-| ---------------- | ----------- | ---------------- |
-| post_code        | string      |  null: false     |
-| prefecture_id    | integer     |  null: false     |
-| city             | string      | null: false      |
-| address          |  string     |  null: false     |
-| building         |  string     |                  |
-| phone_num        |  string     |  null: false     |
-| order            | references  | foreign_key: true|
+| Column           |    Type     |  Options                      |
+| ---------------- | ----------- | ------------------------------|
+| post_code        | string      |  null: false                  |
+| prefecture_id    | integer     |  null: false                  |
+| city             | string      | null: false                   |
+| address          |  string     |  null: false                  |
+| building         |  string     |                               |
+| phone_num        |  string     |  null: false                  |
+| order            | references  | null: false, foreign_key: true|
 
 
 ### Association
