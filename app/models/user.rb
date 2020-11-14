@@ -5,14 +5,21 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :items
   has_many :orders
-  
-  kanji = /\A[ぁ-んァ-ン一-龥]/
-  kana = /\A[ァ-ヶー－]+\z/
-  validates :email, uniqueness: true #一意性制約
-  validates :nickname, presence: true
-  validates :last_name, presence: true, format: { with: kanji }
-  validates :first_name, presence: true, format: { with: kanji }
-  validates :last_name_kana, presence: true, format: { with: kana }
-  validates :first_name_kana, presence: true, format: { with: kana }
-  validates :birthday, presence: true
+    
+  with_options presence: true do
+    validates :nickname
+    validates :birthday
+    validates :email,    uniqueness: true
+    validates :password
+ 
+    with_options format: {with: /\A[ぁ-んァ-ン一-龥]/} do
+      validates :first_name
+      validates :last_name
+    end
+ 
+    with_options format: {with: /\A[ァ-ヶー－]+\z/} do
+      validates :first_name_kana
+      validates :last_name_kana
+    end
+  end
 end

@@ -100,6 +100,11 @@ describe User do
         @user.valid?
         expect(@user.errors.full_messages).to include("Birthday can't be blank")
       end
+      it "@がないメールアドレスは登録できない" do
+        @user.email = "sos1234"
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Email is invalid")
+      end
     end
   end
 end
