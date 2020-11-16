@@ -5,12 +5,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :items
   has_many :orders
-    
+
   with_options presence: true do
     validates :nickname
     validates :birthday
     validates :email,    uniqueness: true
-    validates :password
+    validates :password, format: { with: /\A[a-z0-9]+\z/i }
  
     with_options format: {with: /\A[ぁ-んァ-ン一-龥]/} do
       validates :first_name
