@@ -14,7 +14,7 @@ class Item < ApplicationRecord
     validates :image
     validates :title
     validates :explanation
-    validates :category_id, numericality: { other_than: 1 }#この記述はジャンル選択が"--"のときは保存できないようにする"
+    validates :category_id, numericality: { other_than: 1 } # この記述はジャンル選択が"--"のときは保存できないようにする"
     validates :status_id, numericality: { other_than: 1 }
     validates :burden_id, numericality: { other_than: 1 }
     validates :area_id, numericality: { other_than: 1 }
