@@ -13,7 +13,7 @@ class Item < ApplicationRecord
   belongs_to :area
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :day
-  
+
   with_options presence: true do
     validates :image
     validates :title
@@ -23,9 +23,9 @@ class Item < ApplicationRecord
     validates :burden_id
     validates :area_id
     validates :day_id
-    validates :selling_price, numericality: { only_integer: true, greater_than: 299, less_than_or_equal_to: 9999999 }
-                              #上記はまず、cumericalityが整数であるかどうかや、指定値以上(以下・未満・等しい)かどうかなどを検証できる
-                              #only_integer: true を使うと、整数のみの制限を加えることができる。gerater_than: はその数より大きい
-                              #less_than_or_equal_to はその数以下　lessがgreaterになるとその数以上になる
+    validates :selling_price, numericality: { only_integer: true, greater_than: 299, less_than_or_equal_to: 9_999_999 }
+    # 上記はまず、cumericalityが整数であるかどうかや、指定値以上(以下・未満・等しい)かどうかなどを検証できる
+    # only_integer: true を使うと、整数のみの制限を加えることができる。gerater_than: はその数より大きい
+    # less_than_or_equal_to はその数以下　lessがgreaterになるとその数以上になる
   end
 end

@@ -10,14 +10,14 @@ class User < ApplicationRecord
     validates :nickname
     validates :birthday
     validates :email,    uniqueness: true
-    validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i } #半角英数字混合バリデーション
- 
-    with_options format: {with: /\A[ぁ-んァ-ン一-龥]/} do #全角漢字ひらカナ
+    validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i } # 半角英数字混合バリデーション
+
+    with_options format: { with: /\A[ぁ-んァ-ン一-龥]/ } do # 全角漢字ひらカナ
       validates :first_name
       validates :last_name
     end
- 
-    with_options format: {with: /\A[ァ-ヶー－]+\z/} do #全角カナ
+
+    with_options format: { with: /\A[ァ-ヶー－]+\z/ } do # 全角カナ
       validates :first_name_kana
       validates :last_name_kana
     end
