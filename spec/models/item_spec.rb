@@ -57,7 +57,7 @@ RSpec.describe Item, type: :model do
       expect(@item.errors.full_messages).to include("Image can't be blank")
     end
     it '指定の価格範囲を超えると保存できない' do
-      @item.selling_price = '280'
+      @item.selling_price = 280
       @item.valid?
       expect(@item.errors.full_messages).to include('Selling price must be greater than 299')
     end
@@ -65,6 +65,11 @@ RSpec.describe Item, type: :model do
       @item.selling_price = '４００'
       @item.valid?
       expect(@item.errors.full_messages).to include('Selling price is not a number')
+    end
+    it '価格範囲が上限以上であると保存できない' do
+      @item.selling_price = 99999999
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Selling price must be less than or equal to 9999999")
     end
   end
 end
