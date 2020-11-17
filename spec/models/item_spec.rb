@@ -71,5 +71,30 @@ RSpec.describe Item, type: :model do
       @item.valid?
       expect(@item.errors.full_messages).to include("Selling price must be less than or equal to 9999999")
     end
+    it 'category_idが1の時保存できない' do
+      @item.category_id = 1
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Category must be other than 1")
+    end
+    it 'status_idが1の時保存できない' do
+      @item.status_id = 1
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Status must be other than 1")
+    end
+    it 'burden_idが1の時保存できない' do
+      @item.burden_id = 1
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Burden must be other than 1")
+    end
+    it 'area_idが1の時保存できない' do
+      @item.area_id = 1
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Area must be other than 1")
+    end
+    it 'day_idが１のとき保存できない' do
+      @item.day_id = 1
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Day must be other than 1")
+    end
   end
 end
