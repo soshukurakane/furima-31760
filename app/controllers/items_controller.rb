@@ -1,5 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit]
+  before_action :set_item, only: [:edit, :show]
+
   def index
     @items = Item.all.order('created_at DESC')
   end
@@ -18,11 +20,9 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
   end
 
   def edit
-    @item = Item.find(params[:id])
     unless @item.user_id == current_user.id
       redirect_to action: :index # redirect_to のアクションビューの表示方法の記述はこれ。
     end
@@ -41,5 +41,9 @@ class ItemsController < ApplicationController
 
   def item_params
     params.require(:item).permit(:image, :title, :explanation, :category_id, :status_id, :burden_id, :area_id, :day_id, :selling_price).merge(user_id: current_user.id)
+  end
+
+  def set_item
+    @item = Item.find(params[:id])
   end
 end
