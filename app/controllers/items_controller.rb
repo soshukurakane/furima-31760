@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new]
+  before_action :authenticate_user!, only: [:new, :edit]
   def index
     @items = Item.all.order('created_at DESC')
   end
@@ -19,6 +19,22 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
+  end
+
+  def edit
+    @item = Item.find(params[:id])
+    unless @item.user_id == current_user.id
+      redirect_to action: :index #redirect_to のアクションビューの表示方法の記述はこれ。
+    end
+  end
+
+  def update
+    @item = Item.find(params[:id]) #editと同じ変数でなければ、エラー表示の時にエラー分がでなくなる
+    if @item.update(item_params)
+      redirect_to item_path
+    else
+      render :edit
+    end
   end
 
   private
