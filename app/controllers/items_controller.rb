@@ -24,12 +24,12 @@ class ItemsController < ApplicationController
   def edit
     @item = Item.find(params[:id])
     unless @item.user_id == current_user.id
-      redirect_to action: :index #redirect_to のアクションビューの表示方法の記述はこれ。
+      redirect_to action: :index # redirect_to のアクションビューの表示方法の記述はこれ。
     end
   end
 
   def update
-    @item = Item.find(params[:id]) #editと同じ変数でなければ、エラー表示の時にエラー分がでなくなる
+    @item = Item.find(params[:id]) # editと同じ変数でなければ、エラー表示の時にエラー分がでなくなる
     if @item.update(item_params)
       redirect_to item_path
     else
