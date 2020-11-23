@@ -11,10 +11,10 @@ class OrdersController < ApplicationController
     #この理論はlink_toでの記述でprefixのパス指定のときに(@tweet.id)などのidを持って次に遷移しなければならないのと同じ
     @order_address = OrderAddress.new(orderess_params)
     if @order_address.valid?
+      pay_item
       @order_address.save
       redirect_to root_path
     else
-
       render :index
     end
   end
@@ -22,6 +22,44 @@ class OrdersController < ApplicationController
   private
 
   def orderess_params
-    params.require(:order_address).permit(:post_code, :prefecture_id, :city, :address, :building, :phone_num)
+    params.require(:order_address).permit(:post_code, :prefecture_id, :city, :address, :building, :phone_num).merge(user_id: current_user.id, item_id: @item.id, token: params[:token])
+                                                                                                                  #mergeでどのユーザーが買うのか、と どの商品を買うのかを取得するために上記のような記述になる
+  end
+
+  def pay_item
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp::Charge.create(
+      amount: @item.selling_price,
+      card: orderess_params[:token],
+      currency: 'jpy'
+    )
   end
 end
+
+
+# 詳細ページ：購入画面に進む:2
+# ｜
+# params[:item_id] 2
+# |
+# def index
+#   @item =Item.find(params[:item_id=2])
+# end
+# |
+# @item
+# |
+# index.html.erb
+#   @item.image
+
+# Button
+# |
+# params[
+#   :item_id 2
+#   address
+#   token
+# ]
+# |
+# def create
+
+
+
+
