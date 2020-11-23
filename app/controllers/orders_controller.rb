@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
     @order_address = OrderAddress.new
     @item = Item.find(params[:item_id])
     # item_idでなければ、どのidを引っ張っていけばいいかわからなくなるから、別のコントローラーからidを探すときはしっかり指定してあげなければならない
-    if @item.order.present?
+    if @item.order.present? || @item.user_id == current_user.id
       redirect_to root_path
     end
   end
