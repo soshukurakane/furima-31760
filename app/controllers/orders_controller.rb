@@ -1,14 +1,18 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!, only: [:index]
   def index
     @order_address = OrderAddress.new
     @item = Item.find(params[:item_id])
     # item_idでなければ、どのidを引っ張っていけばいいかわからなくなるから、別のコントローラーからidを探すときはしっかり指定してあげなければならない
+    if @item.order.present?
+      redirect_to root_path
+    end
   end
 
   def create
-    @item = Item.find(params[:item_id])
-    # createにも同じ記述を書く必要があるなぜならrender :indexが実行された場合に@itemの情報を持ってindexに飛ばなければいけないから
+     # createにも同じ記述を書く必要があるなぜならrender :indexが実行された場合に@itemの情報を持ってindexに飛ばなければいけないから
     # この理論はlink_toでの記述でprefixのパス指定のときに(@tweet.id)などのidを持って次に遷移しなければならないのと同じ
+    @item = Item.find(params[:item_id])
     @order_address = OrderAddress.new(orderess_params)
     if @order_address.valid?
       pay_item
